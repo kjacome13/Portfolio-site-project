@@ -1,0 +1,240 @@
+/*applies box-sizing: border-box before and after all elements*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*defines the vars for the root element*/
+:root {
+    /*font families*/
+    --ff-primary: 'Source Sans Pro', sans-serif;
+    --ff-secondary: 'Source Code Pro', monospace;
+    /*font weights*/
+    --fw-reg: 300;
+    --fw-bold: 900;
+    /*colors*/
+    --clr-light: #f4f1de;
+    --clr-dark: #303030;
+    --clr-accent: #809A6F;
+    /*font sizes*/
+    /*rem is good for setting font sizes*/
+    --fs-h1: 3rem;
+    --fs-h2: 2.25rem;
+    --fs-h3: 1.25rem;
+    --fs-body: 1rem;
+    /*box shadows*/
+    --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.25), 
+    0.125em 0.125em 0.25em rgba(0,0,0,.15);
+}
+/*using a media query this sets font sizes for width above 800px*/
+@media (min-width: 800px) {
+    :root {
+        --fs-h1: 4.5rem;
+        --fs-h2: 3.75rem;
+        --fs-h3: 1.5rem;
+        --fs-body: 1.125rem;
+    }
+}
+
+body {
+    background: var(--clr-light);
+    color: var(--clr-dark);
+    margin: 0;
+    font-family: var(--ff-primary);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+}
+
+section {
+    padding: 5em 2em;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+strong { 
+  font-weight: var(--fw-bold); 
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1;
+    margin: 0;
+}
+
+h1 { 
+  font-size: var(--fs-h1); 
+}
+h2 { 
+  font-size: var(--fs-h2); 
+}
+h3 { 
+  font-size: var(--fs-h3); 
+}
+
+
+.section__title {
+    margin-bottom: .25em;
+}
+
+.section__title--intro {
+    font-weight: var(--fw-reg);
+}
+/*makes sure the name in the intro stays on its own line*/
+.section__title--intro strong {
+    display: block;
+}
+
+.section__subtitle {
+    margin: 0;
+    font-size: var(--fs-h3);
+}
+
+.section__subtitle--intro,
+.section__subtitle--about {
+    background: var(--clr-accent);
+    padding: .25em 1em;
+    font-family: var(--ff-secondary);
+    margin-bottom: 1em;
+}
+
+.intro {
+    position: relative;
+}
+/*setting the box shadow for the picture in the intro section*/
+.intro__img {
+    box-shadow: var(--bs);
+}
+
+.section__subtitle--intro {
+    display: inline-block;
+}
+/*media query settings above 600px*/
+/*setting up the grid and layout for the intro section*/
+@media (min-width: 600px) {
+    .intro {
+        display: grid;
+        width: min-content;
+        margin: 0 auto;
+        grid-column-gap: 1em;
+        grid-template-areas: 
+            "img title"
+            "img subtitle";
+        grid-template-columns: min-content max-content;
+    }
+    
+    .intro__img {
+        grid-area: img;
+        min-width: 250px;
+        position: relative;
+        z-index: 2;
+    }    
+    
+    .section__subtitle--intro {
+        /*stops it from stretching down and looking weird*/
+        align-self: start;
+        /*lets it stretch out horizontally*/
+        grid-column: -1 / 1;
+        grid-row: 2;
+        text-align: right;
+        position: relative;
+        left: -1.5em;
+        /*setting the width to match the width of the container plus the amount we moved to the left*/
+        width: calc(100% + 1.5em);
+    }
+}
+
+
+.about-me {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+/*setting the box shadow for the picture in the about section*/
+.about-me__img {
+    box-shadow: var(--bs);
+}
+
+/*using grids again! :) setting them up for the about section here*/
+@media (min-width: 600px) {
+    .about-me {
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        grid-template-areas: 
+            "title img"
+            "subtitle img"
+            "text img";
+        grid-column-gap: 2em;
+    }
+    
+    .section__title--about {
+        grid-area: title;
+    }
+    
+    .section__subtitle--about {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        position: relative;
+        left: -1em;
+        width: calc(100% + 2em);
+        padding-left: 1em;
+        padding-right: calc(200px + 4em);
+    }
+    
+    .about-me__img {
+        grid-area: img;
+        position: relative;
+        z-index: 2;
+    }
+}
+
+/*setting up the footer*/
+.footer {
+    background: #303030;
+    color: var(--clr-accent);
+    text-align: center;
+    padding: 2.5em 0;
+    font-size: var(--fs-h3);
+    margin: 0 auto;
+}
+
+.footer a { 
+    color: inherit;
+    /*removes the underline from the link*/
+    text-decoration: none;
+}
+
+.footer__link {
+    font-weight: var(--fw-bold);
+}
+/*adds hover effect*/
+.footer__link:hover,
+.social-list__link:hover {
+    opacity: .7;
+}
+/*adds underline hover effect*/
+.footer__link:hover {
+    text-decoration: underline;
+}
+
+.social-list {
+    /*removes the bullet points*/
+    list-style: none;
+    /*put the links next to eachother as opposed to under*/
+    display: flex;
+    /*brings them to the middle*/
+    justify-content: center;
+    margin: 2em 0 0;
+    padding: 0;
+}
+
+.social-list__item {
+    margin: 0 .5em;
+}
+
+.social-list__link {
+    padding: .5em;
+}
